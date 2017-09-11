@@ -1,0 +1,28 @@
+@import "../../styles/spacing.css";
+
+:root {
+  --card-spacing-large: var(--spacing-large);
+  --card-spacing-medium: var(--spacing-medium);
+  --card-spacing-small: var(--spacing-small);
+  --card-shadow: 0 2px 5px 0 rgba(67, 67, 67, 0.26);
+  --card-border-radius: 3px;
+
+  --card-title-padding:
+    var(--card-spacing-large)
+    var(--card-spacing-medium)
+    var(--card-spacing-small)
+    var(--card-spacing-medium);
+
+  --card-actions-padding:
+    0
+    var(--card-spacing-medium)
+    var(--card-spacing-small)
+    var(--card-spacing-medium);
+
+  --card-content-padding:
+    0
+    var(--card-spacing-medium)
+    var(--card-spacing-small)
+    var(--card-spacing-medium);
+}
+
