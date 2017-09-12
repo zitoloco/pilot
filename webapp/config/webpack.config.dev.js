@@ -198,6 +198,7 @@ module.exports = {
                     // a trailing ./ to rebased URLs, causing relative imports
                     // to stop working.
                     require('postcss-url')({ url: postcssUrlRebase }),
+                    require('postcss-input-range'),
                     require('postcss-cssnext'),
                   ],
                 },

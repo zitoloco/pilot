@@ -1,0 +1,63 @@
+@import "./properties.css";
+
+.container {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.range {
+  appearance: none;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  flex: 1;
+}
+
+.range::range-track,
+.range::range-thumb,
+.range::range-lower {
+  appearance: none;
+  border: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+.range::range-track {
+  background: var(--slider-track-color);
+  background-image: var(--slider-track-color);
+  border-radius: var(--slider-track-border-radius);
+  height: var(--slider-track-thickness);
+}
+
+.range::range-thumb {
+  background: var(--slider-thumb-color);
+  background-image: var(--slider-track-color);
+  border-radius: var(--slider-thumb-border-radius);
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+}
+
+.range::range-lower {
+  background: var(--slider-track-lower-color);
+}
+
+.min,
+.max,
+.value {
+  font-family: var(--slider-label-font-family);
+  font-size: var(--slider-label-font-size);
+}
+
+.min {
+
+}
+
+.max {
+
+}
+
+.value {
+  position: absolute;
+  bottom: 0;
+}

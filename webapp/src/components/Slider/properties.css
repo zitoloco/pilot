@@ -1,0 +1,11 @@
+@import "../../style.css";
+
+:root {
+  --slider-track-color: var(--color-light-silver-100);
+  --slider-track-thickness: 4px;
+  --slider-track-border-radius: 2px;
+  --slider-thumb-color: var(--color-light-green-accent-200);
+  --slider-thumb-border-radius: 50%;
+  --slider-thumb-size: 18px;
+  --slider-track-lower-color: var(--color-light-green-accent-200);
+}

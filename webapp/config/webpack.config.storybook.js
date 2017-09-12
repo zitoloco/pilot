@@ -36,8 +36,12 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                require('postcss-import'),
                 require('postcss-url')({ url: postcssUrlRebase }),
+                require('postcss-input-range'),
+                require('postcss-cssnext')({
+                  // We don't transpile CSS variables module in Storybook
+                  customProperties: false,
+                }),
               ],
             },
           },
