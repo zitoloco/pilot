@@ -79,12 +79,10 @@ class Filters extends Component {
           icon={<IconFunnel />}
           onClick={this.handleVisibility}
         >
-          {showContent &&
-            <IconArrowUp />
-          }
-
-          {!showContent &&
-            <IconArrowDown />
+          {
+            showContent
+              ? <IconArrowUp />
+              : <IconArrowDown />
           }
         </CardTitle>
 
