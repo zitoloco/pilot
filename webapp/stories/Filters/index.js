@@ -236,6 +236,6 @@ storiesOf('Filters', module)
       dateRanges={dateRanges}
       sections={filters}
       handleFilters={action('Filters')}
-      onFilters={action('filters submitted')}
+      onFilter={action('filters submitted')}
     />
   ))
