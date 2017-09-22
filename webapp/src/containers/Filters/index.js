@@ -169,7 +169,7 @@ class Filters extends Component {
             <CardActions>
               <Grid>
                 <Row flex>
-                  <Col alignEnd>
+                  <Col alignEnd className={style.actionsSpacing}>
                     <Button
                       variant="outline"
                       size="small"
