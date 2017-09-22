@@ -37,7 +37,7 @@ class Filters extends Component {
 
     this.state = {
       showContent: true,
-      selectedDate: 'hoje',
+      selectedDate: '',
       search: '',
       activeFilters: {},
     }
@@ -48,6 +48,20 @@ class Filters extends Component {
     this.handleFilterChange = this.handleFilterChange.bind(this)
 
     this.handleCleanFilters = this.handleCleanFilters.bind(this)
+  }
+
+  componentDidMount () {
+    this.setDefaults()
+  }
+
+  setDefaults () {
+    const {
+      dateRanges,
+    } = this.props
+
+    this.setState({
+      selectedDate: dateRanges[0].value,
+    })
   }
 
   handleVisibility () {
@@ -77,6 +91,8 @@ class Filters extends Component {
       selectedDate: 'hoje',
       search: '',
     })
+
+    this.setDefaults()
   }
 
   render () {
