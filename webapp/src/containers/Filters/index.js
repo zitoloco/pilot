@@ -179,6 +179,7 @@ class Filters extends Component {
                     </Button>
 
                     <Button
+                      type="submit"
                       size="small"
                     >
                       FILTRAR
