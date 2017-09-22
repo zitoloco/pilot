@@ -195,7 +195,10 @@ class Filters extends Component {
 }
 
 Filters.propTypes = {
-  dateRanges: DateRange.propTypes.isRequired,
+  dateRanges: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.func]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  })).isRequired,
   sections: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.shape({
