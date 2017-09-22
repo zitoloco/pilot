@@ -100,6 +100,10 @@ class Filters extends Component {
       showContent,
     } = this.state
 
+    const { activeFilters, selectedDate } = this.state
+
+    const selectedFilters = merge(activeFilters, { selectedDate })
+
     return (
       <Card>
         <CardTitle
@@ -163,6 +167,13 @@ class Filters extends Component {
                   >
                     LIMPAR FILTROS
                   </Button>
+
+                  <Button
+                    size="small"
+                    onClick={() => this.props.handleFilters(selectedFilters)}
+                  >
+                    FILTRAR
+                  </Button>
                 </Col>
               </Row>
             </Grid>
@@ -182,6 +193,7 @@ Filters.propTypes = {
       value: PropTypes.string,
     })),
   })).isRequired,
+  handleFilters: PropTypes.func.isRequired,
 }
 
 export default Filters

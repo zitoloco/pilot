@@ -235,5 +235,6 @@ storiesOf('Filters', module)
     <Filters
       dateRanges={dateRanges}
       sections={filters}
+      handleFilters={action('Filters')}
     />
   ))
