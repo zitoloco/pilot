@@ -95,19 +95,23 @@ class Filters extends Component {
     this.setDefaults()
   }
 
-  handleFiltersSubmit (e) {
-    e.preventDefault()
-    console.log('handleFiltersSubmit', e, this)
+  handleFiltersSubmit (event) {
+    event.preventDefault()
+
+    const {
+      activeFilters,
+      selectedDate,
+    } = this.state
+
+    const selectedFilters = merge(activeFilters, { selectedDate })
+
+    this.props.onFilter(selectedFilters)
   }
 
   render () {
     const {
       showContent,
     } = this.state
-
-    const { activeFilters, selectedDate } = this.state
-
-    const selectedFilters = merge(activeFilters, { selectedDate })
 
     return (
       <Card>
@@ -176,7 +180,6 @@ class Filters extends Component {
 
                     <Button
                       size="small"
-                      onClick={() => this.props.handleFilters(selectedFilters)}
                     >
                       FILTRAR
                     </Button>
@@ -200,7 +203,7 @@ Filters.propTypes = {
       value: PropTypes.string,
     })),
   })).isRequired,
-  handleFilters: PropTypes.func.isRequired,
+  onFilter: PropTypes.func.isRequired,
 }
 
 export default Filters
