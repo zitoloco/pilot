@@ -47,7 +47,7 @@ class Filters extends Component {
     this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this)
     this.handleFilterChange = this.handleFilterChange.bind(this)
 
-    this.cleanFilters = this.cleanFilters.bind(this)
+    this.handleCleanFilters = this.handleCleanFilters.bind(this)
   }
 
   handleVisibility () {
@@ -71,7 +71,7 @@ class Filters extends Component {
     })
   }
 
-  cleanFilters () {
+  handleCleanFilters () {
     this.setState({
       activeFilters: {},
       selectedDate: 'hoje',
@@ -143,7 +143,7 @@ class Filters extends Component {
                   <Button
                     variant="outline"
                     size="small"
-                    onClick={this.cleanFilters}
+                    onClick={this.handleCleanFilters}
                   >
                     LIMPAR FILTROS
                   </Button>
