@@ -15,10 +15,12 @@ import {
   Card,
   CardTitle,
   CardContent,
+  CardActions,
 } from '../../components/Card'
 
 import DateRange from '../../components/Toolbar/DateRange'
 import SearchField from '../../components/Toolbar/SearchField'
+import Button from '../../components/Button'
 
 import {
   Grid,
@@ -44,6 +46,8 @@ class Filters extends Component {
     this.handleDateRangeChange = this.handleDateRangeChange.bind(this)
     this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this)
     this.handleFilterChange = this.handleFilterChange.bind(this)
+
+    this.cleanFilters = this.cleanFilters.bind(this)
   }
 
   handleVisibility () {
@@ -64,6 +68,14 @@ class Filters extends Component {
         this.state.activeFilters,
         { [filter]: values }
       ),
+    })
+  }
+
+  cleanFilters () {
+    this.setState({
+      activeFilters: {},
+      selectedDate: 'hoje',
+      search: '',
     })
   }
 
@@ -123,6 +135,23 @@ class Filters extends Component {
             }
           </Grid>
         </CardContent>
+        { showContent &&
+          <CardActions>
+            <Grid>
+              <Row flex>
+                <Col alignEnd>
+                  <Button
+                    variant="outline"
+                    size="small"
+                    onClick={this.cleanFilters}
+                  >
+                    LIMPAR FILTROS
+                  </Button>
+                </Col>
+              </Row>
+            </Grid>
+          </CardActions>
+        }
       </Card>
     )
   }
