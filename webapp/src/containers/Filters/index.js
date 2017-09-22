@@ -46,8 +46,8 @@ class Filters extends Component {
     this.handleDateRangeChange = this.handleDateRangeChange.bind(this)
     this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this)
     this.handleFilterChange = this.handleFilterChange.bind(this)
-
     this.handleCleanFilters = this.handleCleanFilters.bind(this)
+    this.handleFiltersSubmit = this.handleFiltersSubmit.bind(this)
   }
 
   componentDidMount () {
@@ -95,6 +95,11 @@ class Filters extends Component {
     this.setDefaults()
   }
 
+  handleFiltersSubmit (e) {
+    e.preventDefault()
+    console.log('handleFiltersSubmit', e, this)
+  }
+
   render () {
     const {
       showContent,
@@ -106,79 +111,81 @@ class Filters extends Component {
 
     return (
       <Card>
-        <CardTitle
-          title="Filtros"
-          icon={<IconFunnel />}
-          onClick={this.handleVisibility}
-        >
-          {
-            showContent
-              ? <IconArrowUp />
-              : <IconArrowDown />
-          }
-        </CardTitle>
-
-        <CardContent>
-          <Grid>
-            <Row flex>
-              <Col>
-                <DateRange
-                  items={this.props.dateRanges}
-                  onChange={this.handleDateRangeChange}
-                  selected={this.state.selectedDate}
-                />
-              </Col>
-              <Col alignEnd>
-                <SearchField
-                  value={this.state.search}
-                  onChange={this.handleSearchFieldChange}
-                />
-              </Col>
-            </Row>
-
-            {showContent &&
-              <Row>
-                {this.props.sections.map(({ name, items, key }) => (
-                  <Col palm={12} tablet={6} desk={4} tv={4} key={name}>
-                    <h4 className={style.heading}>{name}</h4>
-                    <Row>
-                      <CheckboxGroup
-                        options={items}
-                        name={name}
-                        onChange={partial(this.handleFilterChange, [key])}
-                        values={this.state.activeFilters[key] || []}
-                      />
-                    </Row>
-                  </Col>
-                ))}
-              </Row>
+        <form action="/" method="post" onSubmit={this.handleFiltersSubmit}>
+          <CardTitle
+            title="Filtros"
+            icon={<IconFunnel />}
+            onClick={this.handleVisibility}
+          >
+            {
+              showContent
+                ? <IconArrowUp />
+                : <IconArrowDown />
             }
-          </Grid>
-        </CardContent>
-        { showContent &&
-          <CardActions>
+          </CardTitle>
+
+          <CardContent>
             <Grid>
               <Row flex>
+                <Col>
+                  <DateRange
+                    items={this.props.dateRanges}
+                    onChange={this.handleDateRangeChange}
+                    selected={this.state.selectedDate}
+                  />
+                </Col>
                 <Col alignEnd>
-                  <Button
-                    variant="outline"
-                    size="small"
-                    onClick={this.handleCleanFilters}
-                  >
-                    LIMPAR FILTROS
-                  </Button>
-
-                  <Button
-                    size="small"
-                    onClick={() => this.props.handleFilters(selectedFilters)}
-                  >
-                    FILTRAR
-                  </Button>
+                  <SearchField
+                    value={this.state.search}
+                    onChange={this.handleSearchFieldChange}
+                  />
                 </Col>
               </Row>
+
+              {showContent &&
+                <Row>
+                  {this.props.sections.map(({ name, items, key }) => (
+                    <Col palm={12} tablet={6} desk={4} tv={4} key={name}>
+                      <h4 className={style.heading}>{name}</h4>
+                      <Row>
+                        <CheckboxGroup
+                          options={items}
+                          name={name}
+                          onChange={partial(this.handleFilterChange, [key])}
+                          values={this.state.activeFilters[key] || []}
+                        />
+                      </Row>
+                    </Col>
+                  ))}
+                </Row>
+              }
             </Grid>
-          </CardActions>
-        }
+          </CardContent>
+          { showContent &&
+            <CardActions>
+              <Grid>
+                <Row flex>
+                  <Col alignEnd>
+                    <Button
+                      variant="outline"
+                      size="small"
+                      onClick={this.handleCleanFilters}
+                    >
+                      LIMPAR FILTROS
+                    </Button>
+
+                    <Button
+                      size="small"
+                      onClick={() => this.props.handleFilters(selectedFilters)}
+                    >
+                      FILTRAR
+                    </Button>
+                  </Col>
+                </Row>
+              </Grid>
+            </CardActions>
+          }
+        </form>
       </Card>
     )
   }
