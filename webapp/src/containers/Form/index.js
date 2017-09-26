@@ -94,7 +94,7 @@ export class Form extends Component {
         fieldset: true,
         children: React.Children.map(
           element.props.children,
-          partialRight(this.cloneTree, [path])
+          partialRight(this.cloneTree, [[...parentPath, ...path]])
         ),
       })
     }
