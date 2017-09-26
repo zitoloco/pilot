@@ -17,5 +17,5 @@ script:
   - yarn lint
   - yarn build
   - yarn test
-  - yarn percy
+  - yarn percy; true
 
