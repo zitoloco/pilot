@@ -125,7 +125,7 @@ export class Form extends Component {
   render () {
     if (this.props.fieldset) {
       return (
-        <fieldset>
+        <fieldset style={{ border: 0, paddingRight: 0 }}>
           {this.props.children}
         </fieldset>
       )
