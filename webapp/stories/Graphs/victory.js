@@ -11,125 +11,108 @@ import {
   VictoryTooltip,
   VictoryVoronoiContainer,
   VictoryScatter,
+  VictoryLabel,
 } from 'victory'
 
+import moment from 'moment'
+
+import transactions from './transactions.json'
+
+const datesRange = () => {
+  let currentDate = moment('2017-07-27T03:00:00.000Z')
+  const end = moment('2017-09-27T03:00:00.000Z')
+
+  const dates = []
+
+  while (currentDate <= end) {
+    dates.push(moment(currentDate).format('DD/MM/YY'))
+    currentDate = moment(currentDate).add(1, 'days')
+  }
+
+  return dates
+}
+
+const generateLines = () => {
+  const { buckets: datesAgg } = transactions.aggregations.date
+
+  const status = {
+    paid: {
+      label: 'Pagas',
+      color: '#9CCC65',
+      data: [],
+    },
+    waiting_payment: {
+      label: 'Aguardando pagamento',
+      color: '#FFA000',
+      data: [],
+    },
+    authorized: {
+      data: 'Autorizado',
+      color: '#8D6E63',
+      data: [],
+    }
+  }
+
+  datesAgg.map((dateAgg) => {
+    const day = moment(dateAgg.key_as_string).format('DD/MM/YY')
+
+    Object.keys(status).forEach((key) => {
+      const { total: { value } } = dateAgg[key]
+
+      status[key].data.push({
+        y: value / 100,
+        x: day,
+      })
+    })
+  })
+
+  const a = Object.keys(status).map((key) => {
+    const { label, color, data } = status[key]
+
+    return (
+      <VictoryGroup
+        color={color}
+        labels={d => `${label}: ${d.y}`}
+        labelComponent={
+          <VictoryTooltip
+            style={{fontSize: 10}}
+          />
+        }
+        data={data}
+      >
+        <VictoryAxis
+          tickValues={datesRange()}
+          tickFormat={datesRange()}
+          tickLabelComponent={<VictoryLabel angle={80} style={{ fontSize: '10px', padding: '5px' }} />}
+        />
+
+        <VictoryAxis
+          dependentAxis
+        />
+
+        <VictoryLine />
+
+        <VictoryScatter
+          size={(d, a) => {return a ? 8 : 3;}}
+        />
+      </VictoryGroup>
+    )
+  })
+
+  return a
+}
+
+generateLines()
+
 storiesOf('Graphs/victory', module)
-.add('line', () => {
-    const data1 = [
-      {
-        y: 1000,
-        x: 1,
-      },
-      {
-        y: 2000,
-        x: 2,
-      },
-      {
-        y: 10000,
-        x: 3,
-      },
-      {
-        y: 11000,
-        x: 4,
-      },
-      {
-        y: 4000,
-        x: 5,
-      },
-      {
-        y: 100,
-        x: 6,
-      },
-    ]
-
-    const data2 = [
-      {
-        y: 100,
-        x: 1,
-      },
-      {
-        y: 3000,
-        x: 2,
-      },
-      {
-        y: 15000,
-        x: 3,
-      },
-      {
-        y: 500,
-        x: 4,
-      },
-    ]
-
+  .add('line', () => {
     return (
       <VictoryChart
         theme={VictoryTheme.material}
         domainPadding={15}
         containerComponent={<VictoryVoronoiContainer />}
       >
-        <VictoryGroup
-          color="#2196F3"
-          labels={d => `Recusado: ${d.y}`}
-          labelComponent={
-            <VictoryTooltip
-              style={{fontSize: 10}}
-            />
-          }
-          data={data1}
-        >
-          <VictoryAxis
-            tickValues={[1, 2, 3, 4, 5, 6, 7]}
-            tickFormat={[
-              'Dia 1',
-              'Dia 2',
-              'Dia 3',
-              'Dia 4',
-              'Dia 5',
-              'Dia 6',
-              'Dia 7'
-            ]}
-          />
-
-          <VictoryAxis
-            dependentAxis
-          />
-
-          <VictoryLine />
-
-          <VictoryScatter
-            size={(d, a) => {return a ? 8 : 3;}}
-          />
-        </VictoryGroup>
-
-        <VictoryGroup
-          color="#3F51B5"
-          labels={d => `Autorizados: ${d.y}`}
-          labelComponent={<VictoryTooltip />}
-          data={data2}
-        >
-          <VictoryAxis
-            tickValues={[1, 2, 3, 4, 5, 6, 7]}
-            tickFormat={[
-              'Dia 1',
-              'Dia 2',
-              'Dia 3',
-              'Dia 4',
-              'Dia 5',
-              'Dia 6',
-              'Dia 7'
-            ]}
-          />
-
-          <VictoryAxis
-            dependentAxis
-          />
-
-          <VictoryLine />
-
-          <VictoryScatter
-            size={(d, a) => {return a ? 8 : 3;}}
-          />
-        </VictoryGroup>
+        {generateLines()}
       </VictoryChart>
     )
   })
