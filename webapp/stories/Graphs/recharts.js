@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
+import moment from 'moment'
 
 import {
   LineChart,
@@ -11,61 +12,63 @@ import {
   YAxis,
 } from 'recharts'
 
+import transactions from './transactions.json'
+
+const datesRange = () => {
+  let currentDate = moment('2017-07-27T03:00:00.000Z')
+  const end = moment('2017-09-27T03:00:00.000Z')
+
+  const dates = []
+
+  while (currentDate <= end) {
+    dates.push(moment(currentDate).format('DD/MM/YY'))
+    currentDate = moment(currentDate).add(1, 'days')
+  }
+
+  return dates
+}
+
+const generateDataSets = () => {
+  const { buckets: datesAgg } = transactions.aggregations.date
+
+  const status = ['paid', 'authorized', 'waiting_payment']
+
+  const a = datesAgg.map((dateAgg) => {
+    const day = moment(dateAgg.key_as_string).format('DD/MM/YY')
+
+    const obj = {
+      day,
+    }
+
+    status.forEach((key) => {
+      const { total: { value } } = dateAgg[key]
+      obj[key] = value / 100
+    })
+
+    return obj
+  })
+
+  return a
+}
+
 storiesOf('Graphs/recharts', module)
   .add('line', () => {
-    const data = [
-      {
-        day: '1',
-        refused: 1000,
-        authorized: 100,
-      },
-      {
-        day: '2',
-        refused: 2000,
-        authorized: 400,
-      },
-      {
-        day: '3',
-        refused: 10000,
-        authorized: 1000,
-      },
-      {
-        day: '4',
-        refused: 9000,
-        authorized: 5000,
-      },
-      {
-        day: '5',
-        refused: 500,
-        authorized: 1000,
-      },
-      {
-        day: '6',
-        refused: 3000,
-        authorized: 3000,
-      },
-      {
-        day: '7',
-        refused: 5000,
-        authorized: 8000,
-      },
-    ]
-
     return (
       <LineChart
-        data={data}
+        data={generateDataSets()}
         onClick={action('Clicked')}
         width={730}
         height={250}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
-        <XAxis dataKey="day" />
+        <XAxis dataKey="day" ticks={datesRange()} interval={2} />
         <YAxis />
         <Tooltip />
         <Legend />
 
-        <Line type="monotone" dataKey="refused" stroke="#e53935" />
-        <Line type="monotone" dataKey="authorized" stroke="#7B1FA2" />
+        <Line type="monotone" dataKey="paid" stroke="#9CCC65" />
+        <Line type="monotone" dataKey="waiting_payment" stroke="#FFA000" />
+        <Line type="monotone" dataKey="authorized" stroke="#8D6E63" />
       </LineChart>
     )
   })

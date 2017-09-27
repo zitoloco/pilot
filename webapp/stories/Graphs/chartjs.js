@@ -32,8 +32,8 @@ const options = {
 // simulando um range de 60 dias... deve ter alguma maneira mais fácil de
 // fazer isso (sorry for bad quality code, só queria algo funcionando kk)
 const datesRange = () => {
-  let currentDate = moment('2017-07-27')
-  const end = moment('2017-09-27')
+  let currentDate = moment('2017-07-27T03:00:00.000Z')
+  const end = moment('2017-09-27T03:00:00.000Z')
 
   const dates = []
 
@@ -71,8 +71,6 @@ const generateDefaultDataset = (label, color) => (
 
 const generateDataSets = () => {
   const { buckets: datesAgg } = transactions.aggregations.date
-
-  console.log(datesAgg)
 
   const status = {
     paid: {
@@ -117,8 +115,8 @@ storiesOf('Graphs/charjs', module)
       <Line
         data={data}
         options={options}
-        width={500}
-        height={500}
+        width={200}
+        height={100}
         onElementsClick={action('Clicked')}
       />
     )
