@@ -29,7 +29,7 @@
                "authorized":{
                   "doc_count":0,
                   "total":{
-                     "value":0
+                     "value":10000
                   }
                },
                "paid":{
@@ -506,7 +506,7 @@
                "authorized":{
                   "doc_count":0,
                   "total":{
-                     "value":0
+                     "value":15000
                   }
                },
                "paid":{
