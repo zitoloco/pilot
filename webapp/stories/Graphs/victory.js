@@ -12,6 +12,8 @@ import {
   VictoryVoronoiContainer,
   VictoryScatter,
   VictoryLabel,
+  VictoryStack,
+  VictoryBar,
 } from 'victory'
 
 import moment from 'moment'
@@ -32,7 +34,7 @@ const datesRange = () => {
   return dates
 }
 
-const generateLines = () => {
+const generateLines = (type) => {
   const { buckets: datesAgg } = transactions.aggregations.date
 
   const status = {
@@ -66,43 +68,63 @@ const generateLines = () => {
     })
   })
 
-  const a = Object.keys(status).map((key) => {
+  if (type === 'line') {
+    const a = Object.keys(status).map((key) => {
+      const { label, color, data } = status[key]
+
+      return (
+        <VictoryGroup
+          color={color}
+          labels={d => `${label}: ${d.y}`}
+          labelComponent={
+            <VictoryTooltip
+              style={{fontSize: '10px'}}
+            />
+          }
+          data={data}
+        >
+          <VictoryAxis
+            tickValues={datesRange()}
+            tickFormat={datesRange()}
+            tickLabelComponent={<VictoryLabel angle={80} style={{ fontSize: '10px', padding: '5px' }} />}
+          />
+
+          <VictoryAxis
+            dependentAxis
+          />
+
+          <VictoryLine />
+
+          <VictoryScatter
+            size={(d, a) => {return a ? 8 : 3;}}
+          />
+        </VictoryGroup>
+      )
+    })
+
+    return a
+  }
+
+  const b = Object.keys(status).map((key) => {
     const { label, color, data } = status[key]
 
     return (
-      <VictoryGroup
-        color={color}
-        labels={d => `${label}: ${d.y}`}
+      <VictoryBar
         labelComponent={
           <VictoryTooltip
-            style={{fontSize: 10}}
+            style={{fontSize: '10px'}}
           />
         }
         data={data}
-      >
-        <VictoryAxis
-          tickValues={datesRange()}
-          tickFormat={datesRange()}
-          tickLabelComponent={<VictoryLabel angle={80} style={{ fontSize: '10px', padding: '5px' }} />}
-        />
-
-        <VictoryAxis
-          dependentAxis
-        />
-
-        <VictoryLine />
-
-        <VictoryScatter
-          size={(d, a) => {return a ? 8 : 3;}}
-        />
-      </VictoryGroup>
+        style={{
+          data: { fill: color }
+        }}
+      />
     )
   })
 
-  return a
+  return b
 }
-
-generateLines()
 
 storiesOf('Graphs/victory', module)
   .add('line', () => {
@@ -112,7 +134,29 @@ storiesOf('Graphs/victory', module)
         domainPadding={15}
         containerComponent={<VictoryVoronoiContainer />}
       >
-        {generateLines()}
+        {generateLines('line')}
+      </VictoryChart>
+    )
+  })
+  .add('stacked bar', () => {
+    return (
+      <VictoryChart
+        theme={VictoryTheme.material}
+        domainPadding={15}
+      >
+        <VictoryAxis
+          tickValues={datesRange()}
+          tickFormat={datesRange()}
+          tickLabelComponent={<VictoryLabel angle={80} style={{ fontSize: '5px' }} />}
+        />
+
+        <VictoryAxis
+          dependentAxis
+        />
+
+        <VictoryStack>
+          {generateLines('stacked')}
+        </VictoryStack>
       </VictoryChart>
     )
   })
