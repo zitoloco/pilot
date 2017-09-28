@@ -6,24 +6,38 @@ A próxima versão da Dashboard Pagar.me
 
 <br>
 
+[![Join the chat at https://gitter.im/pagarme/react-event-components](https://badges.gitter.im/pagarme/pilot.svg)](https://gitter.im/pagarme/pilot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+<br>
+
+
+Pilot é o codinome da nova dashboard do Pagar.me. O produto foi criado
+a partir de feedbacks dos usuários, para que eles possam ter uma
+experiência cada vez mais transparente de sua operação financeira no
+Pagar.me, e consigam focar no seu negócio!
+
+A home do Pilot entrega aos clientes um panorama da sua operação: é
+possível visualizar volume total de transações, índice de chargeback,
+taxa de crescimento, etc. Além disso, são disponibilizados alguns
+indicadores específicos que fazem sentido para diferentes tipos de
+operação.
+
+O Pilot ainda está **em fase de desenvolvimento**! Para mais
+informações sobre o estado do Pilot, acompanhe a Timeline do
+projeto, manteremos ela atualizada a cada trimestre com
+informações sobre o estado funcional do projeto!
 
 ## Timeline do projeto
 
-### Q4 2016
+### Q3 2017
 
-Nossa equipe começou a pensar em uma próxima versão da nossa dashboard,
-peça fundamental para empoderar o lojista a tomar decisões de negócio.
+Criamos o projeto no Github. Integramos a equipe de UI no Git de forma a
+termos os assets do projeto disponíveis dentro do mesmo repositório (modelo
+de monorepo). Organizamos as [milestones de desenvolvimento][milestones]
+no Github, criamos um [styleguide de React][react-styleguide] para o
+projeto.
 
-Com o crescimento do Pagar.me em 2016, e consequentemente a entrada de
-novos clientes, precisavamos mergulhar de cabeça no dia-a-dia deles para
-dar a luz a um novo conceito de dashboard, que fosse totalmente centrada
-na operação do nosso cliente.
-
-### Q1 2017
-
-Formamos uma equipe de UX para trabalhar na experiência do usuário.
-Esta equipe está desde janeiro compreendendo as dores dos usuários da
-[nossa dashboard atual][dashboard-pagarme] e anotando cada detalhe.
+<details>
+<summary>Ver Q2 2017, Q1 2017, Q4 2016</summary>
 
 ### Q2 2017
 
@@ -35,13 +49,23 @@ A equipe de UI iniciou o design de uma biblioteca de componentes básicos
 de interface, incluindo botões, inputs, cards, etc. Essa biblioteca será
 usada para desenvolver as telas baseadas nos protótipos.
 
-### Q3 2017
+### Q1 2017
 
-Criamos o projeto no Github. Integramos a equipe de UI no Git de forma a
-termos os assets do projeto disponíveis dentro do mesmo repositório (modelo
-de monorepo). Organizamos as [milestones de desenvolvimento][milestones]
-no Github, criamos um [styleguide de React][react-styleguide] para o
-projeto.
+Formamos uma equipe de UX para trabalhar na experiência do usuário.
+Esta equipe está desde janeiro compreendendo as dores dos usuários da
+[nossa dashboard atual][dashboard-pagarme] e anotando cada detalhe.
+
+### Q4 2016
+
+Nossa equipe começou a pensar em uma próxima versão da nossa dashboard,
+peça fundamental para empoderar o lojista a tomar decisões de negócio.
+
+Com o crescimento do Pagar.me em 2016, e consequentemente a entrada de
+novos clientes, precisavamos mergulhar de cabeça no dia-a-dia deles para
+dar a luz a um novo conceito de dashboard, que fosse totalmente centrada
+na operação do nosso cliente.
+
+</details>
 
 ### Próximos passos
 
