@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions'
 
 import moment from 'moment'
 
-import { Line } from 'react-chartjs-2'
+import { Line, Bar } from 'react-chartjs-2'
 
 import transactions from './transactions.json'
 
@@ -16,14 +16,16 @@ const options = {
       {
         gridLines: {
           display: false,
-        }
+        },
+        stacked: true,
       }
     ],
     yAxes: [
       {
         gridLines: {
           display: true,
-        }
+        },
+        stacked: true,
       },
     ],
   },
@@ -117,7 +119,21 @@ storiesOf('Graphs/charjs', module)
         options={options}
         width={200}
         height={100}
-        onElementsClick={action('Clicked')}
+        onElementsClick={action('ElementsClick')}
+        getDatasetAtEvent={action('DatasetAtEvent')}
+      />
+    )
+  })
+  .add('stacked bar', () => {
+    const data = {
+      labels: datesRange(),
+      datasets: generateDataSets(),
+    }
+
+    return (
+      <Bar
+        data={data}
+        options={options}
       />
     )
   })
