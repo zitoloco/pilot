@@ -68,7 +68,7 @@ storiesOf('Graphs/recharts', module)
         <Tooltip />
         <Legend />
 
-        <Line type="monotone" dataKey="paid" stroke="#9CCC65" />
+        <Line type="monotone" dataKey="paid" stroke="#9CCC65" onClick={action('Clicked paid')} />
         <Line type="monotone" dataKey="waiting_payment" stroke="#FFA000" />
         <Line type="monotone" dataKey="authorized" stroke="#8D6E63" />
       </LineChart>
@@ -81,13 +81,14 @@ storiesOf('Graphs/recharts', module)
         width={730}
         height={250}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        onClick={action('Clicked')}
       >
         <XAxis dataKey="day" ticks={datesRange()} interval={2} />
         <YAxis />
         <Tooltip />
         <Legend />
 
-        <Bar stackId="a" dataKey="paid" fill="#9CCC65" />
+        <Bar stackId="a" dataKey="paid" fill="#9CCC65" onClick={action('Clicked paid')} />
         <Bar stackId="a" dataKey="waiting_payment" fill="#FFA000" />
         <Bar stackId="a" dataKey="authorized" fill="#8D6E63" />
       </BarChart>
