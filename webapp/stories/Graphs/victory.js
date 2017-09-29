@@ -111,6 +111,13 @@ const generateLines = (type) => {
 
     return (
       <VictoryBar
+        events={[
+          {
+            eventHandlers: {
+              onClick: action('Clicked'),
+            }
+          }
+        ]}
         labelComponent={
           <VictoryTooltip
             style={{fontSize: '10px'}}
