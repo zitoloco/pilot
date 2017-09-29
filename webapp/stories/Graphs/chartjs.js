@@ -121,6 +121,7 @@ storiesOf('Graphs/charjs', module)
         height={100}
         onElementsClick={action('ElementsClick')}
         getDatasetAtEvent={action('DatasetAtEvent')}
+        getElementAtEvent={action('ElementClick')}
       />
     )
   })
@@ -134,6 +135,9 @@ storiesOf('Graphs/charjs', module)
       <Bar
         data={data}
         options={options}
+        onElementsClick={action('ElementsClick')}
+        getElementAtEvent={action('ElementClick')}
+        getDatasetAtEvent={action('DatasetAtEvent')}
       />
     )
   })
