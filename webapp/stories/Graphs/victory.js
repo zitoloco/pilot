@@ -14,6 +14,7 @@ import {
   VictoryLabel,
   VictoryStack,
   VictoryBar,
+  VictoryLegend,
 } from 'victory'
 
 import moment from 'moment'
@@ -96,7 +97,7 @@ const generateLines = (type) => {
           <VictoryLine />
 
           <VictoryScatter
-            size={(d, a) => {return a ? 8 : 3;}}
+            size={(d, a) => {return a ? 8 : 3}}
           />
         </VictoryGroup>
       )
@@ -134,6 +135,8 @@ storiesOf('Graphs/victory', module)
         domainPadding={15}
         containerComponent={<VictoryVoronoiContainer />}
       >
+        <VictoryLegend />
+
         {generateLines('line')}
       </VictoryChart>
     )
@@ -153,6 +156,8 @@ storiesOf('Graphs/victory', module)
         <VictoryAxis
           dependentAxis
         />
+
+        <VictoryLegend />
 
         <VictoryStack>
           {generateLines('stacked')}
