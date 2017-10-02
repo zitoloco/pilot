@@ -1,0 +1,29 @@
+version: 2
+image: ubuntu:16.04
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - webapp-dependencies-{{ checksum "webapp/package.json" }}
+          - weapp-dependencies-
+
+      - run: |
+          cd webapp
+          yarn
+          yarn lint
+          yarn build
+          yarn test
+
+      - save_cache:
+          paths:
+            - webapp/node_modules
+          key: webapp-dependencies-{{ checksum "webapp/package.json" }}
+
