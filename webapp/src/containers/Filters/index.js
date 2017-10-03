@@ -5,8 +5,21 @@ import IconArrowUp from 'react-icons/lib/md/keyboard-arrow-up'
 import IconArrowDown from 'react-icons/lib/md/keyboard-arrow-down'
 import IconFunnel from 'react-icons/lib/fa/filter'
 import {
+  __,
+  contains,
   merge,
   partial,
+  keys,
+  flatten,
+  props as rProps,
+  prop,
+  pipe,
+  propEq,
+  mapObjIndexed,
+  filter as rFilter,
+  find,
+  map,
+  propSatisfies,
 } from 'ramda'
 
 import style from './style.css'
@@ -48,6 +61,8 @@ class Filters extends Component {
     this.handleFilterChange = this.handleFilterChange.bind(this)
     this.handleCleanFilters = this.handleCleanFilters.bind(this)
     this.handleFiltersSubmit = this.handleFiltersSubmit.bind(this)
+
+    this.createTags = this.createTags.bind(this)
   }
 
   componentDidMount () {
@@ -115,6 +130,33 @@ class Filters extends Component {
     this.props.onFilter(selectedFilters)
   }
 
+  createTags () {
+    const activeFiltersObj = mapObjIndexed((values, key) =>
+      pipe(
+        find(propEq('key', key)),
+        prop('items'),
+        rFilter(propSatisfies(contains(__, values), 'value'))
+      )(this.props.sections)
+    )
+
+    const withLabel = activeFiltersObj(this.state.activeFilters)
+    const selectedFilters = pipe(
+      rProps(keys(withLabel)),
+      flatten
+    )(withLabel)
+
+    return map(({ label, value }) => (
+      <Button
+        key={value}
+        variant="dashed"
+        size="micro"
+        color="silver"
+      >
+        {label}
+      </Button>
+    ), selectedFilters)
+  }
+
   render () {
     const {
       showContent,
@@ -153,6 +195,14 @@ class Filters extends Component {
                 </Col>
               </Row>
 
+              {!showContent &&
+                <Row>
+                  <Col>
+                    {this.createTags()}
+                  </Col>
+                </Row>
+              }
+
               {showContent &&
                 <Row>
                   {this.props.sections.map(({ name, items, key }) => (
@@ -174,30 +224,28 @@ class Filters extends Component {
               }
             </Grid>
           </CardContent>
-          { showContent &&
-            <CardActions>
-              <Grid>
-                <Row flex>
-                  <Col alignEnd className={style.actionsSpacing}>
-                    <Button
-                      variant="outline"
-                      size="small"
-                      onClick={this.handleCleanFilters}
-                    >
-                      Limpar filtros
-                    </Button>
+          <CardActions>
+            <Grid>
+              <Row flex>
+                <Col alignEnd className={style.actionsSpacing}>
+                  <Button
+                    variant="outline"
+                    size="small"
+                    onClick={this.handleCleanFilters}
+                  >
+                    Limpar filtros
+                  </Button>
 
-                    <Button
-                      type="submit"
-                      size="small"
-                    >
-                      Filtrar
-                    </Button>
-                  </Col>
-                </Row>
-              </Grid>
-            </CardActions>
-          }
+                  <Button
+                    type="submit"
+                    size="small"
+                  >
+                    Filtrar
+                  </Button>
+                </Col>
+              </Row>
+            </Grid>
+          </CardActions>
         </form>
       </Card>
     )
