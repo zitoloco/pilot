@@ -42,6 +42,7 @@ storiesOf('Switch', module)
   .add('All styles', () => (
     <div className={style.container}>
       <section>
+        <pre>Hello, this line must break visual-tests :)</pre>
         <h2>Enabled</h2>
         <p>Checked</p>
         <SwitchState checked />
