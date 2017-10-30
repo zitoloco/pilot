@@ -145,7 +145,7 @@
     }
   },
   "devDependencies": {
-    "loki": "0.6.3"
+    "loki": "oblador/loki#disable-raf"
   },
   "loki": {
     "diffingEngine": "looks-same",

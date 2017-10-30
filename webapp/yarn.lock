@@ -3917,6 +3917,10 @@ get-own-enumerable-property-symbols@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-2.0.1.tgz#5c4ad87f2834c4b9b4e84549dc1e0650fb38c24b"
 
+get-port@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/get-port/-/get-port-3.2.0.tgz#dd7ce7de187c06c8bf353796ac71e099f0980ebc"
+
 get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
@@ -5715,15 +5719,16 @@ loglevel@^1.4.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.5.1.tgz#189078c94ab9053ee215a0acdbf24244ea0f6502"
 
-loki@0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/loki/-/loki-0.6.3.tgz#c894c3fa21be23fb820989ebd466ca01dd0d15b2"
+loki@oblador/loki#disable-raf:
+  version "0.7.0"
+  resolved "https://codeload.github.com/oblador/loki/tar.gz/7c9ae3f4010164c3d0d9b8c0f79f98157d5b3d39"
   dependencies:
     chalk "^2.0.1"
     chrome-remote-interface "^0.23.3"
     debug "^2.6.8"
     execa "^0.7.0"
     fs-extra "^3.0.1"
+    get-port "^3.2.0"
     gitbook-plugin-anchorjs "^1.1.1"
     gitbook-plugin-edit-link "^2.0.2"
     gitbook-plugin-github "^2.0.0"
