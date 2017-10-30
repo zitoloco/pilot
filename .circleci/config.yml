@@ -21,6 +21,7 @@ jobs:
           yarn lint
           yarn build
           yarn test
+          yarn percy
 
       - save_cache:
           paths:
