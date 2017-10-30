@@ -78,7 +78,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "percy": "build-storybook && percy-storybook --widths=1024,1920",
     "storybook": "start-storybook -p 6006 --host 0.0.0.0",
-    "visual-tests": "yarn build-storybook && loki --skipStories=\"^Progress\\/Linear disabled|Progress\\/Linear normal|Progress\\/Circular disabled|Progress\\/Circular normal\\$\" --reactUri=\"file:./storybook-static\" ",
+    "visual-tests": "yarn build-storybook && loki --reactUri=\"file:./storybook-static\" ",
     "build-storybook": "build-storybook"
   },
   "jest": {
