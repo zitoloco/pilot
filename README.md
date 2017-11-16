@@ -110,7 +110,7 @@ também para criar um catálogo de componentes.
 
 ### Rodando
 
-Entre na pasta `webapp`. Lá você encontrará o README do webapp e poderá
+Entre na pasta [webapp](webapp). Lá você encontrará o README do webapp e poderá
 descobrir como rodar o projeto em seu computador.
 
 ### Contribuindo
