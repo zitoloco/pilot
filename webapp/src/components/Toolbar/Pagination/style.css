@@ -9,6 +9,7 @@
   overflow: hidden;
   color: var(--pagination-text-color);
   height: var(--pagination-height);
+  font-size: var(--pagination-font-size);
 }
 
 .paginationError {
@@ -27,6 +28,7 @@
   align-items: safe center;
   white-space: pre;
   font-weight: normal;
+  font-family: var(--pagination-font-family);
 }
 
 .displayError {
@@ -85,7 +87,6 @@
   border: none;
   text-align: center;
   font-weight: bold;
-  font-size: var(--pagination-input-font-size);
   padding: 0;
   background: none;
   color: inherit;
@@ -93,12 +94,24 @@
   appearance: textfield;
   letter-spacing: 0;
   width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .bigChild {
   flex-grow: 2;
   flex-basis: auto;
   text-align: center;
+  font-family: var(--pagination-font-family);
+  position: relative;
+  height: 100%;
+  width: auto;
+}
+
+.hiddenChild {
+  visibility: hidden;
 }
 
 .smallChild {

@@ -48,8 +48,8 @@ const createState = pipe(
 )
 
 const preventInvalidKeys = (event) => {
-  const regex = /([0-9])\w+/
-  if (!regex.match(event.key)) {
+  const regex = new RegExp(/([0-9])+/)
+  if (!regex.test(event.key)) {
     event.preventDefault()
   }
 }
@@ -276,10 +276,7 @@ class Pagination extends React.Component {
         </button>
 
         <div className={displayClasses}>
-          <span
-            className={style.bigChild}
-            style={{ width: `${(totalPages.toString().length / 2)}em` }}
-          >
+          <span className={style.bigChild}>
             <input
               type="number"
               min={1}
@@ -292,12 +289,12 @@ class Pagination extends React.Component {
               className={style.input}
               maxLength={2}
             />
+            <span className={style.hiddenChild}>
+              {totalPages}
+            </span>
           </span>
           <span className={style.smallChild}>de</span>
-          <span
-            className={style.bigChild}
-            style={{ width: `${(totalPages.toString().length / 2)}em` }}
-          >
+          <span>
             {totalPages}
           </span>
         </div>
