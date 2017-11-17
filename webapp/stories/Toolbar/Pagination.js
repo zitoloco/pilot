@@ -51,10 +51,10 @@ class PaginationState extends React.Component {
           />
         </Toolbar>
         {this.state.inputError &&
-          <p>ERROOOOOOOOU</p>
+          <p>Epic fail!</p>
         }
-        <p>Página atual: {this.state.currentPage}</p>
-        <label htmlFor="totalPages" > Número de páginas </label>
+        <p>Current page: {this.state.currentPage}</p>
+        <label htmlFor="totalPages" > Pages: </label>
         <br />
         <input
           id="totalPages"
