@@ -6,11 +6,15 @@ import Pagination from '../../src/components/Toolbar/Pagination'
 class PaginationState extends React.Component {
   constructor (props) {
     super(props)
-
+    const {
+      currentPage,
+      totalPages,
+      inputError,
+    } = props
     this.state = {
-      currentPage: 1,
-      totalPages: 10,
-      inputError: false,
+      currentPage: currentPage || 1,
+      totalPages: totalPages || 10,
+      inputError: !!inputError,
     }
 
     this.pageChanged = this.pageChanged.bind(this)
@@ -70,4 +74,49 @@ class PaginationState extends React.Component {
 }
 
 storiesOf('Toolbar', module)
-  .add('Pagination', () => <PaginationState />)
+  .add('Pagination', () =>(
+    <div>
+      <h1>Pagination usage</h1>
+
+      <section>
+        <h2>Single page</h2>
+        <PaginationState
+          currentPage={1}
+          totalPages={1}
+        />
+      </section>
+
+      <section>
+        <h2>First page</h2>
+        <PaginationState
+          currentPage={1}
+          totalPages={10}
+        />
+      </section>
+
+      <section>
+        <h2>Intermediate page</h2>
+        <PaginationState
+          currentPage={5}
+          totalPages={10}
+        />
+      </section>
+
+      <section>
+        <h2>Last page</h2>
+        <PaginationState
+          currentPage={10}
+          totalPages={10}
+        />
+      </section>
+
+      <section>
+        <h2>Wrong page</h2>
+        <PaginationState
+          currentPage={2}
+          totalPages={1}
+        />
+      </section>
+
+    </div>
+  ))

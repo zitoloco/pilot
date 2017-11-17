@@ -316,25 +316,6 @@ describe('Pagination', () => {
     expect(page).toBe(3)
   })
 
-  it('should trigger onError', () => {
-    const onError = jest.fn()
-    let page = 3
-
-    const component = mount(
-      <Pagination
-        currentPage={page}
-        totalPages={10}
-        onPageChange={(newPage) => { page = newPage }}
-        onError={onError}
-      />
-    )
-
-    const input = component.find('input').first()
-    input.simulate('change', { target: { value: '14' } })
-
-    expect(onError).toHaveBeenCalledWith(true)
-  })
-
   it('should remove first digit if it is zero', () => {
     let page = 3
 

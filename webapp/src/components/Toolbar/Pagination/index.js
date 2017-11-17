@@ -59,11 +59,11 @@ class Pagination extends React.Component {
     super(props)
 
     this.state = {
-      inputPage: null,
+      inputPage: props.currentPage,
     }
 
     this.onInputChange = this.onInputChange.bind(this)
-    this.getCurrentPage = this.getCurrentPage.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.goTo = this.goTo.bind(this)
     this.submitInput = this.submitInput.bind(this)
     this.calculateInputValue = this.calculateInputValue.bind(this)
@@ -75,7 +75,6 @@ class Pagination extends React.Component {
 
     const {
       totalPages,
-      onError,
     } = this.props
 
     const { value: newPage } = event.target
@@ -106,8 +105,7 @@ class Pagination extends React.Component {
 
     const handleError = pipe(
       Number,
-      hasError,
-      onError
+      hasError
     )
 
     if (hasValidLength(newPage)) {
@@ -116,19 +114,14 @@ class Pagination extends React.Component {
     }
   }
 
-  getCurrentPage () {
+  handleSubmit () {
     const {
       totalPages,
       onPageChange,
       currentPage,
-      onError,
     } = this.props
 
     const { inputPage } = this.state
-
-    this.setState({
-      inputPage: null,
-    })
 
     const isValidCurrentPage = allPass([
       propSatisfies(is(Number), 'currentPage'),
@@ -149,9 +142,13 @@ class Pagination extends React.Component {
       [T, always(inputPage)],
     ])
 
-    onPageChange(getCorrectPage({ currentPage, inputPage }))
+    const correctPage = getCorrectPage({ currentPage, inputPage })
 
-    onError(false)
+    onPageChange(correctPage)
+
+    this.setState({
+      inputPage: correctPage,
+    })
   }
 
   goTo (path) {
@@ -172,9 +169,13 @@ class Pagination extends React.Component {
     const newPage = pipe(
       calculateNewPage,
       range
-    )
+    )(path)
 
-    onPageChange(newPage(path))
+    onPageChange(newPage)
+
+    this.setState({
+      inputPage: newPage,
+    })
   }
 
   calculateInputValue () {
@@ -243,7 +244,7 @@ class Pagination extends React.Component {
 
     const validateSubmit = ifElse(
       allPass([isAllowedKey, isValidInput]),
-      this.getCurrentPage,
+      this.handleSubmit,
       F
     )
 
@@ -253,8 +254,11 @@ class Pagination extends React.Component {
   render () {
     const {
       totalPages,
-      error,
     } = this.props
+
+    const inputPage = +this.state.inputPage
+
+    const error = totalPages < inputPage || inputPage === 0
 
     const paginationClasses = classNames(style.pagination, {
       [style.paginationError]: error,
@@ -283,7 +287,7 @@ class Pagination extends React.Component {
               max={totalPages}
               value={this.calculateInputValue()}
               onChange={this.onInputChange}
-              onBlur={this.getCurrentPage}
+              onBlur={this.handleSubmit}
               onKeyDown={this.submitInput}
               onKeyPress={preventInvalidKeys}
               className={style.input}
@@ -316,13 +320,7 @@ Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
-  onError: PropTypes.func,
-  error: PropTypes.bool,
 }
 
-Pagination.defaultProps = {
-  onError: () => null,
-  error: false,
-}
 
 export default Pagination
