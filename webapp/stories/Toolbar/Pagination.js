@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { storiesOf } from '@storybook/react'
 import Toolbar from '../../src/components/Toolbar'
 import Pagination from '../../src/components/Toolbar/Pagination'
@@ -9,17 +10,14 @@ class PaginationState extends React.Component {
     const {
       currentPage,
       totalPages,
-      inputError,
     } = props
     this.state = {
       currentPage: currentPage || 1,
       totalPages: totalPages || 10,
-      inputError: !!inputError,
     }
 
     this.pageChanged = this.pageChanged.bind(this)
     this.changeTotalPages = this.changeTotalPages.bind(this)
-    this.handleInputError = this.handleInputError.bind(this)
   }
 
   pageChanged (page) {
@@ -36,25 +34,21 @@ class PaginationState extends React.Component {
     })
   }
 
-  handleInputError (inputError) {
-    this.setState({
-      inputError,
-    })
-  }
-
   render () {
+    const { currentPage, totalPages } = this.state
+
+    const error = totalPages < currentPage || currentPage === 0
+
     return (
       <div style={{ padding: '10px' }}>
         <Toolbar>
           <Pagination
-            currentPage={this.state.currentPage}
-            totalPages={this.state.totalPages}
+            currentPage={currentPage}
+            totalPages={totalPages}
             onPageChange={this.pageChanged}
-            onError={this.handleInputError}
-            error={this.state.inputError}
           />
         </Toolbar>
-        {this.state.inputError &&
+        {error &&
           <p>Epic fail!</p>
         }
         <p>Current page: {this.state.currentPage}</p>
@@ -73,8 +67,14 @@ class PaginationState extends React.Component {
   }
 }
 
+PaginationState.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+}
+
+
 storiesOf('Toolbar', module)
-  .add('Pagination', () =>(
+  .add('Pagination', () => (
     <div>
       <h1>Pagination usage</h1>
 
